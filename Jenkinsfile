@@ -6,6 +6,8 @@ pipeline {
     }
    environment {
        SONAR_SCANNER_HOME= tool 'sonar-scanner'
+       IMAGE_NAME = "java-app"
+       IMAGE_TAG = "${BUILD_NUMBER}"
    }
     stages {
         stage('Initialize Pipeline'){
@@ -58,11 +60,10 @@ pipeline {
         stage('Build & Tag Docker Image'){
             steps {
                 echo 'Building the Java App Docker Image'
+                script {
+                    sh 'docker built -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                    sh 'docker run -d --name my_project -p 8090:8090 IMAGE_NAME:IMAGE_TAG'
                 }
-        }
-        stage('Trivy Security Scan'){
-            steps {
-                echo 'Scanning Docker Image with Trivy'
             }
         }
     }

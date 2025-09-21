@@ -42,7 +42,7 @@ pipeline {
                                -Dsonar.projectKey=jenkinsproject \
                                -Dsonar.sources=. \
                                -Dsonar.host.url=http://13.201.33.110:9000 \
-                               -Dsonar.java.binaries=target/classes
+                               -Dsonar.java.binaries=target/classes \
                                -Dsonar.token=sonar                    
                            '''
                  }

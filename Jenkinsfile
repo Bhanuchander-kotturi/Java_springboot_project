@@ -62,22 +62,6 @@ pipeline {
                 echo 'Building the Java App Docker Image'
                 script {
                     sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
-                    // sh 'docker run -d --name java-spring-project -p 8090:8090 ${IMAGE_NAME}:${IMAGE_TAG}'
-                }
-            }
-        }
-        stage('Trivy Security Scan'){
-            steps {
-                echo 'Scanning File System with Trivy FS ...'
-                sh '''
-  			            trivy image --severity HIGH,CRITICAL --cache-dir ${WORKSPACE}/.trivy-cache --no-progress --format table -o trivyFSScanReport.html ${IMAGE_NAME}:${IMAGE_TAG}
-     		       '''
-            }
-        }
-        stage('container creation and push to dockerhub'){
-            steps {
-                echo 'Building the Java App Docker Image'
-                script {
                     sh 'docker run -d --name java-spring-project -p 8090:8090 ${IMAGE_NAME}:${IMAGE_TAG}'
                 }
             }

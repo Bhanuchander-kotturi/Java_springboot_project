@@ -4,6 +4,9 @@ pipeline {
         jdk 'jdk21'
         maven 'maven3'
     }
+   environment {
+       SONAR_SCANNER_HOME= tool 'sonar-scanner'
+   }
     stages {
         stage('Initialize Pipeline'){
             steps {
@@ -33,6 +36,16 @@ pipeline {
         stage('SonarQube Analysis'){
             steps {
                 echo 'Running Static Code Analysis with SonarQube'
+                withCredentials([string(credentialsId: 'sonar', variable: 'SonarToken')]) {
+                    withSonarQubeEnv('sonar-scanner') {
+                        sh ''' ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                               -Dsonar.projectKey=jenkinsproject \
+                               -Dsonar.sources=. \
+                               -Dsonar.host.url=http://13.201.33.110:9000 \
+                               -Dsonar.java.binaries=target/classes
+                               -Dsonar.token=sonar                    
+                           '''
+                 }
             }
         }
         stage('Trivy FS Scan'){

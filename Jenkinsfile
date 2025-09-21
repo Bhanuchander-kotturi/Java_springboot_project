@@ -62,7 +62,7 @@ pipeline {
                 echo 'Building the Java App Docker Image'
                 script {
                     sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
-                    sh 'docker run -d --name java-spring-project -p 8090:8090 IMAGE_NAME:IMAGE_TAG'
+                    sh 'docker run -d --name java-spring-project -p 8090:8090 ${IMAGE_NAME}:${IMAGE_TAG}'
                 }
             }
         }

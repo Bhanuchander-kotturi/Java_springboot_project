@@ -70,11 +70,11 @@ pipeline {
             steps {
                 echo 'Scanning File System with Trivy FS ...'
                 sh '''
-  			            trivy --severity HIGH,CRITICAL --cache-dir ${WORKSPACE}/.trivy-cache --no-progress --format table -o trivyFSScanReport.html image ${IMAGE_NAME}:${IMAGE_TAG}
+  			            trivy image --severity HIGH,CRITICAL --cache-dir ${WORKSPACE}/.trivy-cache --no-progress --format table -o trivyFSScanReport.html ${IMAGE_NAME}:${IMAGE_TAG}
      		       '''
             }
         }
-        stage('Docker creation and push to dockerhub'){
+        stage('container creation and push to dockerhub'){
             steps {
                 echo 'Building the Java App Docker Image'
                 script {

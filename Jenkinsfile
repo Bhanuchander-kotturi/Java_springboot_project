@@ -43,7 +43,7 @@ pipeline {
                                -Dsonar.sources=. \
                                -Dsonar.host.url=http://13.201.33.110:9000 \
                                -Dsonar.java.binaries=target/classes \
-                               -Dsonar.token=sonar                    
+                               -Dsonar.token=$SonarToken                  
                            '''
                  }
             }

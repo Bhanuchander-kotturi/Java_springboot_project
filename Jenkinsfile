@@ -48,6 +48,7 @@ pipeline {
                  }
             }
         }
+        }
         stage('Trivy FS Scan'){
             steps {
                 echo 'Scanning File System with Trivy FS ...'
